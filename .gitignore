@@ -1,0 +1,16 @@
+# Build output
+/out/
+/build/
+
+# Visual Studio
+/.vs/
+
+# Local CMake settings
+/CMakeUserPresets.json
+
+# Compiler artifacts
+*.obj
+*.pdb
+*.ilk
+*.exe
+*.dll

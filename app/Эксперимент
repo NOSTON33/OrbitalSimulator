@@ -1,0 +1,26 @@
+Vector2 position{ constants::earthRadius, 0.0 };
+	Vector2 velocity{ 0.0, firstCosmicVelocity() };
+	double dt = 2.5;
+	State initialState{ position, velocity };
+
+	std::vector<TrajectoryPoint> eulerResult = simulate(initialState, orbitalPeriod(), dt, eulerStep);
+	std::vector<TrajectoryPoint> leapfrogResult = simulate(initialState, orbitalPeriod(), dt, leapfrogStep);
+	
+	double initialEnergy = specificOrbitalEnergy(initialState);
+	double eulerEnergy = specificOrbitalEnergy(eulerResult[eulerResult.size() - 1].state);
+	double leapfrogEnergy = specificOrbitalEnergy(leapfrogResult[leapfrogResult.size() - 1].state);
+
+	double eulerEnergyError = initialEnergy - eulerEnergy;
+	double leaprogEnergyError = initialEnergy - leapfrogEnergy;
+
+	double relativeEulerEnergyError = eulerEnergyError / initialEnergy;
+	double relativeLeapfrogEnergyError = leaprogEnergyError / initialEnergy;
+
+	std::cout << "initialEnergy: " << initialEnergy << '\n';
+	std::cout << "eulerEnergyError: " << eulerEnergyError << '\n';
+	std::cout << "leaprogEnergyError: " << leaprogEnergyError << '\n';
+	std::cout << "relativeEulerEnergyError: " << relativeEulerEnergyError << '\n';
+	std::cout << "relativeLeapfrogEnergyError: " << relativeLeapfrogEnergyError << '\n';
+
+
+	return 0;
